@@ -1,0 +1,19 @@
+{% from "macros/ui.html" import wipe_card %}
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Портфолио</span>
+      <h2>Примеры выполненных работ</h2>
+    </div>
+    <p class="gallery-hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>
+      Потяните за ползунок на любом фото, чтобы увидеть «до» и «после»
+    </p>
+    <div class="gallery-grid">
+      {% for item in gallery %}
+        {{ wipe_card(item.before, item.after, item.label, item.title) }}
+      {% endfor %}
+    </div>
+  </div>
+</section>

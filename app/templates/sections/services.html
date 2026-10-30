@@ -1,0 +1,39 @@
+{% from "macros/ui.html" import check_icon %}
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Прайс</span>
+      <h2>Услуги и цены на клининг в Екатеринбурге</h2>
+      <p>Нажмите на любую услугу, чтобы узнать подробности. Точную стоимость назову после уточнения объёма — цена фиксируется заранее и не меняется на месте.</p>
+    </div>
+
+    <div class="price-grid">
+      {% for s in services %}
+      <a href="/services/{{ s.slug }}" class="price-card {{ 'featured' if s.featured else '' }}" style="text-decoration: none; color: inherit; display: flex;">
+        {% if s.badge %}<span class="price-badge">{{ s.badge }}</span>{% endif %}
+        <h3>{{ s.title }}</h3>
+        <div class="price {{ 'price-text' if s.is_text_price else '' }}">
+          {{ s.price }} <small>{{ s.unit }}</small>
+        </div>
+        <p class="desc">{{ s.desc }}</p>
+        <ul>
+          {% for feat in s.features %}
+          <li>{{ check_icon() }}{{ feat }}</li>
+          {% endfor %}
+        </ul>
+        <div style="margin-top: 20px; font-weight: 700; font-size: 14px; color: var(--accent); display: inline-flex; align-items: center; gap: 6px;">
+          Подробнее об услуге →
+        </div>
+      </a>
+      {% endfor %}
+
+      <article class="price-card ask">
+        <h3>Не нашли свою задачу?</h3>
+        <p class="desc">Опишите, что нужно убрать или почистить, — подскажу, смогу ли помочь, и назову цену.</p>
+        <a href="#contact" class="btn-primary">Спросить</a>
+      </article>
+    </div>
+    <p class="price-note">* Итоговая цена зависит от площади остекления, размера и степени загрязнённости мебели, площади помещения, объёма и стадии ремонта — назову точную сумму после заявки или замера.</p>
+  </div>
+</section>

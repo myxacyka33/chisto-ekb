@@ -1,0 +1,21 @@
+<section id="reviews">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Отзывы</span>
+      <h2>Что говорят клиенты</h2>
+      <p>Отзывы с Авито — их можно проверить в профиле.</p>
+    </div>
+    <div class="reviews-grid">
+      {% for r in reviews %}
+      <article class="review-card">
+        <div class="review-stars" aria-label="5 из 5">★★★★★</div>
+        <p class="review-text">{{ r.text }}</p>
+        <p class="review-meta">{{ r.meta }}</p>
+      </article>
+      {% endfor %}
+    </div>
+    <div class="reviews-more">
+      <a href="{{ contacts.avito_url }}" class="btn-ghost" target="_blank" rel="noopener">Все отзывы на Авито</a>
+    </div>
+  </div>
+</section>

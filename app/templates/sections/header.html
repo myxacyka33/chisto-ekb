@@ -1,0 +1,28 @@
+<header id="siteHeader">
+  <div class="nav wrap">
+    <a href="#" class="logo" aria-label="Чисто Екб — в начало страницы">Чисто Екб<span class="heart" aria-hidden="true">♥</span></a>
+    <nav class="links" aria-label="Основное меню">
+      <a href="#services">Услуги и цены</a>
+      <a href="#gallery">Работы</a>
+      <a href="#area">Районы</a>
+      <a href="#faq">Вопросы</a>
+      <a href="#contact" onclick="event.preventDefault(); document.getElementById('certModal').showModal();">🎁 Сертификат</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+    <div class="nav-right">
+      <a href="tel:{{ contacts.phone_raw }}" class="nav-phone js-phone">{{ contacts.phone_display }}</a>
+      <a href="#contact" class="nav-cta">Оставить заявку</a>
+      <button class="burger" id="burgerBtn" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+    </div>
+  </div>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Мобильное меню">
+    <a href="#services">Услуги и цены</a>
+    <a href="#gallery">Работы</a>
+    <a href="#area">Районы</a>
+    <a href="#faq">Вопросы</a>
+    <a href="#about">Обо мне</a>
+    <a href="#contact" onclick="event.preventDefault(); document.getElementById('certModal').showModal();">🎁 Подарочный сертификат</a>
+    <a href="#contact">Контакты</a>
+    <a href="tel:{{ contacts.phone_raw }}" class="js-phone">Позвонить: {{ contacts.phone_display }}</a>
+  </nav>
+</header>

@@ -1,0 +1,20 @@
+<section id="area">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">География</span>
+      <h2>Выезжаю во все районы Екатеринбурга</h2>
+      <p>Мытьё окон, химчистка диванов и уборка — в любом районе города, обычно в день обращения.</p>
+    </div>
+    <div class="area-box">
+      <h3>Районы</h3>
+      <ul class="chips main">
+        {% for d in areas.districts %}<li>{{ d }}</li>{% endfor %}
+      </ul>
+      <h3>Микрорайоны</h3>
+      <ul class="chips">
+        {% for m in areas.microdistricts %}<li>{{ m }}</li>{% endfor %}
+      </ul>
+      <p class="area-note">Не нашли свой район? <a href="#contact">Всё равно напишите</a> — выезд в ближайшие города области тоже обсуждаем.</p>
+    </div>
+  </div>
+</section>

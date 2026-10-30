@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Оцените качество уборки — Чисто Екб</title>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/main.css">
+  <style>
+    .rate-box { max-width: 540px; margin: 64px auto; background: var(--white); padding: 40px 32px; border-radius: var(--radius-lg); box-shadow: var(--shadow); text-align: center; }
+    .stars { display: flex; justify-content: center; gap: 12px; margin: 28px 0; }
+    .star-btn { font-size: 44px; background: none; border: none; cursor: pointer; color: #D5E2EE; transition: transform .15s ease, color .15s ease; }
+    .star-btn.active, .star-btn:hover { color: #F5B400; transform: scale(1.12); }
+    .ext-links { display: none; flex-direction: column; gap: 12px; margin-top: 24px; }
+    .neg-form { display: none; flex-direction: column; gap: 16px; margin-top: 24px; text-align: left; box-shadow: none; padding: 0; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="rate-box">
+      <div class="logo" style="justify-content:center; margin-bottom:16px;">Чисто Екб<span class="heart">♥</span></div>
+      <h1 style="font-size:24px; margin-bottom:10px;">{{ lead.name }}, как вам результат?</h1>
+      <p style="color:var(--text-muted); font-size:15px;">Оцените работу мастера по заказу «{{ lead.service }}» от 1 до 5 звёзд:</p>
+
+      <div class="stars" id="starContainer">
+        {% for i in range(1, 6) %}
+        <button type="button" class="star-btn" data-val="{{ i }}">★</button>
+        {% endfor %}
+      </div>
+
+      <div class="ext-links" id="positiveBlock">
+        <p style="font-weight:700; color:var(--primary); margin-bottom:8px;">Спасибо за высокую оценку! 🎉<br>Будем очень благодарны, если вы оставите короткий отзыв на любой удобной площадке:</p>
+      <!--  <a href="{{ links.avito }}" target="_blank" class="btn-primary">Оставить отзыв на Авито</a>
+        <a href="{{ links.dgis }}" target="_blank" class="btn-ghost">Оставить отзыв в 2ГИС</a>
+        <a href="{{ links.yandex }}" target="_blank" class="btn-ghost">Оставить отзыв на Яндекс.Картах</a>-->
+      </div>
+
+      <form class="neg-form" id="negativeForm">
+        <p style="font-weight:700; color:var(--primary);">Мне очень жаль, что мы не оправдали ожиданий. Напишите, что пошло не так — сообщение попадёт лично руководителю Игорю Мельниченко, и мы бесплатно всё исправим:</p>
+        <textarea name="feedback" id="negText" placeholder="Опишите, что нам нужно исправить..." required></textarea>
+        <button type="submit" class="submit-btn">Отправить лично руководителю</button>
+      </form>
+
+      <div class="form-msg" id="rateThanks" style="margin-top:20px;">
+        <span>Спасибо! Ваше сообщение передано руководителю. Мы свяжемся с вами в ближайшее время.</span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let selectedRating = 0;
+    const stars = document.querySelectorAll('.star-btn');
+    const posBlock = document.getElementById('positiveBlock');
+    const negForm = document.getElementById('negativeForm');
+    const thanks = document.getElementById('rateThanks');
+
+    stars.forEach(btn => {
+      btn.addEventListener('click', async () => {
+        selectedRating = Number(btn.dataset.val);
+        stars.forEach(s => s.classList.toggle('active', Number(s.dataset.val) <= selectedRating));
+
+        if (selectedRating >= 4) {
+          posBlock.style.display = 'flex';
+          negForm.style.display = 'none';
+          const fd = new FormData();
+          fd.append('rating', selectedRating);
+          await fetch('/api/rate/{{ lead.review_token }}', { method: 'POST', body: fd });
+        } else {
+          posBlock.style.display = 'none';
+          negForm.style.display = 'flex';
+        }
+      });
+    });
+
+    negForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const fd = new FormData();
+      fd.append('rating', selectedRating);
+      fd.append('feedback', document.getElementById('negText').value);
+      await fetch('/api/rate/{{ lead.review_token }}', { method: 'POST', body: fd });
+      negForm.style.display = 'none';
+      thanks.classList.add('show');
+    });
+  </script>
+</body>
+</html>

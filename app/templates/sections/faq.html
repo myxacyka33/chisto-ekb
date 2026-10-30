@@ -1,0 +1,17 @@
+<section id="faq">
+  <div class="wrap faq-layout">
+    <div class="section-head">
+      <span class="eyebrow">Вопросы</span>
+      <h2>Частые вопросы</h2>
+      <p>Не нашли ответ? Позвоните или напишите в Telegram — отвечу на любой вопрос до заказа.</p>
+    </div>
+    <div class="faq-list">
+      {% for item in faq %}
+      <details>
+        <summary>{{ item.q }}</summary>
+        <p>{{ item.a }}</p>
+      </details>
+      {% endfor %}
+    </div>
+  </div>
+</section>

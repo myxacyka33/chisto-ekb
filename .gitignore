@@ -2,3 +2,6 @@
 .DS_Store
 Thumbs.db
 *.log
+.env
+app/static/images/*
+app/config.py

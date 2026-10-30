@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ service.seo_title }}</title>
+    <meta name="description" content="{{ service.seo_desc }}">
+    <meta name="theme-color" content="#F3F8FD">
+    <link rel="icon" href="/static/favicon.ico" sizes="any">
+
+    <meta property="og:title" content="{{ service.seo_title }}">
+    <meta property="og:description" content="{{ service.seo_desc }}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:image" content="{{ meta.og_image }}">
+    <meta property="og:url" content="{{ meta.url }}services/{{ service.slug }}">
+    <link rel="canonical" href="{{ meta.url }}services/{{ service.slug }}">
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (m, e, t, r, i, k, a) {
+            m[i] = m[i] || function () { (m[i].a = m[i].a || []).push(arguments) };
+            m[i].l = 1 * new Date();
+            for (var j = 0; j < document.scripts.length; j++) { if (document.scripts[j].src === r) { return; } }
+            k = e.createElement(t), a = e.getElementsByTagName(t)[0], k.async = 1, k.src = r, a.parentNode.insertBefore(k, a)
+        })(window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js?id={{ meta.metrika_id }}', 'ym');
+        ym({{ meta.metrika_id }}, 'init', { ssr: true, webvisor: true, clickmap: true, ecommerce: "dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce: true, trackLinks: true });
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/main.css">
+    <style>
+        .service-hero {
+            padding: 48px 0 32px;
+        }
+
+        .service-content-box {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--line);
+            margin-bottom: 64px;
+        }
+
+        .service-content-box h1 {
+            font-size: clamp(28px, 3.5vw, 42px);
+            margin-bottom: 20px;
+        }
+
+        .service-price-tag {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 34px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 24px;
+        }
+
+        .service-price-tag small {
+            font-family: 'Manrope', sans-serif;
+            font-size: 16px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .features-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin: 32px 0;
+        }
+
+        .features-list li {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            font-weight: 600;
+            font-size: 17px;
+        }
+
+        .features-list li svg {
+            width: 22px;
+            height: 22px;
+            color: var(--accent);
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .service-content-box {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body data-metrika-id="{{ meta.metrika_id }}">
+    <noscript>
+        <div><img src="https://mc.yandex.ru/watch/{{ meta.metrika_id }}" style="position:absolute; left:-9999px;"
+                alt="" /></div>
+    </noscript>
+
+    {% include "sections/header.html" %}
+
+    <main>
+        <div class="wrap service-hero">
+            <a href="/#services" class="btn-ghost" style="margin-bottom: 24px; min-height: 42px; padding: 0 20px;">←
+                Назад к списку услуг</a>
+
+            <div class="service-content-box">
+                {% if service.badge %}<span class="price-badge" style="margin-bottom: 16px; display: inline-block;">{{
+                    service.badge }}</span>{% endif %}
+                <h1>{{ service.title }} в Екатеринбурге</h1>
+                <div class="service-price-tag">{{ service.price }} <small>{{ service.unit }}</small></div>
+                <p style="font-size: 18px; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px;">{{
+                    service.desc }}</p>
+
+                <h3 style="font-size: 20px; margin-top: 32px; margin-bottom: 16px;">Что входит в услугу:</h3>
+                <ul class="features-list">
+                    {% for feat in service.features %}
+                    <li>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                            aria-hidden="true">
+                            <path d="M20 6L9 17l-5-5" />
+                        </svg>
+                        {{ feat }}
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <div style="margin-top: 40px; display: flex; gap: 16px; flex-wrap: wrap;">
+                    <a href="/#contact" class="btn-primary">Заказать услугу</a>
+                    <a href="tel:{{ contacts.phone_raw }}" class="btn-ghost js-phone">Позвонить мастеру</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include "sections/footer.html" %}
+    <script src="/static/js/main.js" defer></script>
+</body>
+
+</html>

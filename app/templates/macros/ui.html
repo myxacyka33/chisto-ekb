@@ -1,0 +1,22 @@
+{% macro check_icon() %}
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true">
+  <path d="M20 6L9 17l-5-5"/>
+</svg>
+{% endmacro %}
+
+{% macro wipe_card(before_img, after_img, aria_label, title=None, is_mini=True, id=None) %}
+<figure class="wipe-card {{ 'mini-wipe' if is_mini else '' }}" {% if id %}id="{{ id }}"{% endif %} role="group" aria-label="{{ aria_label }}">
+  <div class="layer dirty" style="background-image:url('{{ before_img }}')"></div>
+  <div class="layer clean" style="background-image:url('{{ after_img }}')"></div>
+  <span class="wipe-tag tag-before">До</span>
+  <span class="wipe-tag tag-after">После</span>
+  <div class="wipe-handle">
+    <div class="grip">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#3FA9F5" stroke-width="2.4" stroke-linecap="round" aria-hidden="true">
+        <path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/>
+      </svg>
+    </div>
+  </div>
+  {% if title %}<figcaption>{{ title }}</figcaption>{% endif %}
+</figure>
+{% endmacro %}

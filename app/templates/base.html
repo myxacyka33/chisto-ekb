@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ meta.title }}</title>
+  <meta name="description" content="{{ meta.description }}">
+  <meta name="theme-color" content="#F3F8FD">
+  <link rel="icon" href="/static/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="120x120" href="/static/favicon-120.png">
+  <link rel="apple-touch-icon" href="/static/favicon-120.png">
+
+  <meta property="og:title" content="{{ meta.og_title }}">
+  <meta property="og:description" content="{{ meta.og_description }}">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:image" content="{{ meta.og_image }}">
+  <meta property="og:url" content="{{ meta.url }}">
+  <link rel="canonical" href="{{ meta.url }}">
+
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id={{ meta.metrika_id }}', 'ym');
+
+    ym({{ meta.metrika_id }}, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "name": "Чисто Екб",
+        "url": "{{ meta.url }}",
+        "image": "{{ meta.og_image }}",
+        "telephone": "{{ contacts.phone_raw }}",
+        "email": "{{ contacts.email }}",
+        "priceRange": "от 350 ₽",
+        "areaServed": { "@type": "City", "name": "Екатеринбург" },
+        "description": "Мытьё окон, химчистка диванов, уборка квартир и помещений, уборка после ремонта в Екатеринбурге. Выезд во все районы города."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {% for item in faq %}
+          {
+            "@type": "Question",
+            "name": {{ item.q | tojson }},
+            "acceptedAnswer": { "@type": "Answer", "text": {{ item.a | tojson }} }
+          }{{ "," if not loop.last else "" }}
+          {% endfor %}
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/main.css">
+</head>
+<body data-metrika-id="{{ meta.metrika_id }}">
+  <noscript><div><img src="https://mc.yandex.ru/watch/{{ meta.metrika_id }}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+  {% include "sections/header.html" %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  {% include "sections/footer.html" %}
+
+  <script src="/static/js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+{% from "macros/ui.html" import wipe_card %}
+
+<section class="hero wrap">
+  <div class="hero-copy">
+    <span class="eyebrow">Чисто. Как в первый день.</span>
+    <h1>Мытьё окон, химчистка диванов и уборка <span>в Екатеринбурге</span></h1>
+    <p class="lead">Верну окнам прозрачность, а мягкой мебели чистоту и свежесть. Наведу идеальный порядок в квартире после ремонта. Гарантирую отсутствие разводов, запаха химии и лишних забот для вас. Выезжаю во все районы города</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Оставить заявку</a>
+      <a href="tel:{{ contacts.phone_raw }}" class="btn-ghost js-phone">
+        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        Позвонить
+      </a>
+    </div>
+    <p class="hero-alt">Удобнее переписываться? <a href="{{ contacts.max_url }}" class="js-telegram">Напишите в Max</a></p>
+  </div>
+
+  <div class="hero-visual">
+    {{ wipe_card('/static/images/t1.jpg', '/static/images/t.jpg', 'Окно до и после мытья', is_mini=False, id='wipeCard') }}
+    <p class="wipe-caption">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5"/></svg>
+      Потяните за ползунок — посмотрите разницу
+    </p>
+  </div>
+</section>
